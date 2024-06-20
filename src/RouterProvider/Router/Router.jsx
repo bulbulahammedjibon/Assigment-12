@@ -66,7 +66,8 @@ const router = createBrowserRouter([
       },
       {
         path: 'wishlist',
-        element: <WishList />
+        element: <WishList />,
+       
       },
       {
         path: 'property-bought',

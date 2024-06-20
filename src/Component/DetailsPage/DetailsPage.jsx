@@ -67,11 +67,14 @@ const DetailsPage = () => {
 
         const wishListData = {
             id: _id,
+            property_image:image,
+            property_location:location,
             user_email: user?.email,
             user_name: user?.displayName,
             user_photo: user?.photoURL,
             title: title,
             agent_Name: agent_name,
+            agent_photo:agent_photo,
             verification_status: verification_status,
             min_price: min_price,
             max_price: max_price,
