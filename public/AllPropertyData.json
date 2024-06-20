@@ -1,0 +1,70 @@
+[
+    {
+        "id": "1",
+      "propertyImage": "https://i.ibb.co/0JyHJFg/istockphoto-1321135340-1024x1024.jpg",
+      "propertyTitle": "Charming Bungalow",
+      "propertyLocation": "123 Maple Street, Springfield",
+      "agentName": "Alice Johnson",
+      "agentImage": "https://example.com/images/agent1.jpg",
+      "verificationStatus": "Verified",
+      "priceRange": "$300,000 - $350,000",
+      "description": "This charming bungalow is located in the heart of Springfield. It features a cozy living space with modern amenities. The property includes a spacious garden, a garage, and is within walking distance to local shops and parks."
+    },
+    {
+        "id": "2",
+      "propertyImage": "https://i.ibb.co/yprBxzy/istockphoto-530437460-1024x1024.jpg",
+      "propertyTitle": "Modern Apartment",
+      "propertyLocation": "456 Oak Avenue, Metropolis",
+      "agentName": "Bob Smith",
+      "agentImage": "https://example.com/images/agent2.jpg",
+      "verificationStatus": "Verified",
+      "priceRange": "$500,000 - $550,000",
+      "description": "This modern apartment is situated in a prime location in Metropolis. It offers stunning city views, a state-of-the-art kitchen, and a spacious living area. The building includes amenities such as a gym, swimming pool, and 24-hour security."
+    },
+    {
+        "id": "3",
+      "propertyImage": "https://i.ibb.co/0FbqBWL/istockphoto-908733970-1024x1024.jpg",
+      "propertyTitle": "Cozy Cottage",
+      "propertyLocation": "789 Pine Road, Gotham",
+      "agentName": "Charlie Brown",
+      "agentImage": "https://example.com/images/agent3.jpg",
+      "verificationStatus": "Verified",
+      "priceRange": "$200,000 - $250,000",
+      "description": "Nestled in a quiet neighborhood, this cozy cottage offers a peaceful retreat. It features a charming interior with a fireplace, hardwood floors, and a beautiful backyard. Ideal for those seeking a serene and comfortable home."
+    },
+    {
+        "id": "4",
+      "propertyImage": "https://i.ibb.co/16TR7LZ/istockphoto-970201634-1024x1024.jpg",
+      "propertyTitle": "Luxury Villa",
+      "propertyLocation": "101 Elm Street, Smallville",
+      "agentName": "Dana White",
+      "agentImage": "https://example.com/images/agent4.jpg",
+      "verificationStatus": "Verified",
+      "priceRange": "$400,000 - $450,000",
+      "description": "This luxury villa is a true masterpiece, offering elegance and comfort. Located in Smallville, it boasts spacious rooms, high-end finishes, and a private pool. The property is perfect for those looking to live in luxury."
+    },
+    {
+        "id": "5",
+      "propertyImage": "https://i.ibb.co/RP8cHkf/istockphoto-1778738751-1024x1024.jpg",
+      "propertyTitle": "Suburban House",
+      "propertyLocation": "202 Birch Lane, Star City",
+      "agentName": "Eve Adams",
+      "agentImage": "https://example.com/images/agent5.jpg",
+      "verificationStatus": "Verified",
+      "priceRange": "$350,000 - $400,000",
+      "description": "Located in a family-friendly neighborhood, this suburban house offers ample space and modern conveniences. It features a large backyard, a fully equipped kitchen, and is close to schools and shopping centers."
+
+    },
+    {
+        "id": "6",
+      "propertyImage": "https://i.ibb.co/vVyCNKR/istockphoto-479767334-1024x1024.jpg",
+      "propertyTitle": "Downtown Loft",
+      "propertyLocation": "303 Cedar Court, Central City",
+      "agentName": "Frank Miller",
+      "agentImage": "https://example.com/images/agent6.jpg",
+      "verificationStatus": "Verified",
+      "priceRange": "$250,000 - $300,000",
+      "description": "This downtown loft is perfect for those who love city living. It features an open floor plan, high ceilings, and large windows that let in plenty of natural light. The property is located close to public transport, restaurants, and nightlife."
+    }
+  ]
+  

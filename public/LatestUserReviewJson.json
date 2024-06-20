@@ -1,0 +1,34 @@
+[
+    {
+        "username": "JohnDoe",
+        "userImage": "https://example.com/images/user1.jpg",
+        "reviewDate": "2024-06-10",
+        "rating": 4.5,
+        "reviewText": "Great property, amazing location. Had a wonderful experience!",
+        "propertyTitle": "123 Maple Street, Springfield"
+    },
+    {
+        "username": "JaneSmith",
+        "userImage": "https://example.com/images/user2.jpg",
+        "reviewDate": "2024-06-12",
+        "rating": 4.0,
+        "reviewText": "The property was good, but there were some minor issues with the maintenance.",
+        "propertyTitle": "456 Oak Avenue, Metropolis"
+    },
+    {
+        "username": "AlexBrown",
+        "userImage": "https://example.com/images/user3.jpg",
+        "reviewDate": "2024-06-14",
+        "rating": 5.0,
+        "reviewText": "Excellent property! Everything was perfect, highly recommend.",
+        "propertyTitle": "789 Pine Road, Gotham"
+    },
+    {
+        "username": "ChrisGreen",
+        "userImage": "https://example.com/images/user4.jpg",
+        "reviewDate": "2024-06-15",
+        "rating": 3.5,
+        "reviewText": "The property was okay, but the neighborhood was not as expected.",
+        "propertyTitle": "101 Elm Street, Smallville"
+    }
+]

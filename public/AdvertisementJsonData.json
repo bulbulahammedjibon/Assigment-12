@@ -1,0 +1,32 @@
+[
+    {
+      "propertyImage": "https://i.ibb.co/0JyHJFg/istockphoto-1321135340-1024x1024.jpg",
+      "propertyLocation": "123 Maple Street, Springfield",
+      "priceRange": "$300,000 - $350,000",
+      "verificationStatus": "Verified",
+      "detailsUrl": "/properties/1"
+    },
+    {
+      "propertyImage": "https://i.ibb.co/yprBxzy/istockphoto-530437460-1024x1024.jpg",
+      "propertyLocation": "456 Oak Avenue, Metropolis",
+      "priceRange": "$500,000 - $550,000",
+      "verificationStatus": "Pending",
+      "detailsUrl": "/properties/2"
+    },
+    {
+      "propertyImage": "https://i.ibb.co/0FbqBWL/istockphoto-908733970-1024x1024.jpg",
+      "propertyLocation": "789 Pine Road, Gotham",
+      "priceRange": "$200,000 - $250,000",
+      "verificationStatus": "Verified",
+      "detailsUrl": "/properties/3"
+    },
+    {
+      "propertyImage": "https://i.ibb.co/16TR7LZ/istockphoto-970201634-1024x1024.jpg",
+      "propertyLocation": "101 Elm Street, Smallville",
+      "priceRange": "$400,000 - $450,000",
+      "verificationStatus": "Rejected",
+      "detailsUrl": "/properties/4"
+    }
+     
+  ]
+  

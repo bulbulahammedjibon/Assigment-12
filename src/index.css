@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.loginbg{
+    background-image: url(./assets/daniel-barnes-RKdLlTyjm5g-unsplash.jpg);
+    background-size: cover;
+}
+.singbg{
+    background-image: url(./assets/lotus-design-n-print-r_y2VBvEOIE-unsplash.jpg);
+    background-size: cover;
+}
