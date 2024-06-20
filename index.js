@@ -72,6 +72,12 @@ async function run() {
             const result = await propertyCollection.find().toArray();
             res.send(result);
         })
+        app.get('/property/:email',async (req,res)=>{
+            const email = req.params.email;
+            const query = {agent_email:email}
+            const result = await propertyCollection.find(query).toArray();
+            res.send(result);
+        })
 
         app.get(`/single-property/:id`, async (req, res) => {
             const id = req.params.id;
@@ -87,6 +93,17 @@ async function run() {
             const result = await reviewCollection.find(query).toArray();
             res.send(result);
         })
+
+        app.get('/wishlist/:email', async (req, res) => {
+            const email = req.params.email;
+            console.log(email);
+            const query = { user_email: email };
+            const result = await wishListCollection.find(query).toArray();
+            res.send(result);
+
+        })
+
+        
 
         app.post('/user/review', async (req, res) => {
             const data = req.body;
