@@ -86,7 +86,7 @@ const RequestedProperties = () => {
                                 <td className="whitespace-nowrap px-4 py-2">
                                     <button
                                         disabled={status}
-                                        onClick={() => handleAccept(data._id, data.id)}
+                                        onClick={() => handleAccept(data._id, data.id,user_email)}
                                         className="inline-block rounded bg-green-500 px-4 py-2 text-xs font-medium text-white hover:bg-indigo-700"
                                     >
                                         Accept
@@ -95,7 +95,7 @@ const RequestedProperties = () => {
 
                                 <td className="whitespace-nowrap px-4 py-2">
                                     <button
-                                        onClick={() => handleReject(data._id, data.id,user_email)}
+                                        onClick={() => handleReject(data._id, data.id,)}
                                         className="inline-block rounded bg-red-500 px-4 py-2 text-xs font-medium text-white hover:bg-indigo-700"
                                     >
                                         Reject
