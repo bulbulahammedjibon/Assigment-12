@@ -44,6 +44,7 @@ async function run() {
         const propertyCollection = client.db("real-estate").collection("property");
         const reviewCollection = client.db("real-estate").collection("reviews");
         const wishListCollection = client.db("real-estate").collection("wish-list");
+        const offerCollection = client.db("real-estate").collection("offers");
         //admin verify
         app.get('/users/admin/:email', async (req, res) => {
             const email = req.params.email;
@@ -67,14 +68,14 @@ async function run() {
             }
             res.send({ agent });
         })
-
+        //Property get data
         app.get('/property-advertisement', async (req, res) => {
             const result = await propertyCollection.find().toArray();
             res.send(result);
         })
-        app.get('/property/:email',async (req,res)=>{
+        app.get('/property/:email', async (req, res) => {
             const email = req.params.email;
-            const query = {agent_email:email}
+            const query = { agent_email: email }
             const result = await propertyCollection.find(query).toArray();
             res.send(result);
         })
@@ -85,7 +86,15 @@ async function run() {
             result = await propertyCollection.findOne(query);
             res.send(result);
         })
+        //Property Post data
+        app.post('/property', async (req, res) => {
+            const data = req.body;
+            const result = await propertyCollection.insertOne(data);
+            res.send(result);
+        });
 
+
+        //Review get data
         app.get('/user/review/:id', async (req, res) => {
             const dataId = req.params.id;
             console.log(dataId)
@@ -94,6 +103,19 @@ async function run() {
             res.send(result);
         })
 
+        app.get('/reviews/:email', async (req, res) => {
+            const email = req.params.email;
+            const query = { user_email: email };
+            const result = await reviewCollection.find(query).toArray();
+            res.send(result);
+        })
+        //Review Post Data
+        app.post('/user/review', async (req, res) => {
+            const data = req.body;
+            const result = await reviewCollection.insertOne(data);
+            res.send(result);
+        })
+        //WishList get data
         app.get('/wishlist/:email', async (req, res) => {
             const email = req.params.email;
             console.log(email);
@@ -103,19 +125,38 @@ async function run() {
 
         })
 
-        
-
-        app.post('/user/review', async (req, res) => {
-            const data = req.body;
-            const result = await reviewCollection.insertOne(data);
+        //WishList Post data
+        app.post('/wish-list', async (req, res) => {
+            const wishData = req.body;
+            const result = await wishListCollection.insertOne(wishData);
             res.send(result);
         })
 
-        app.post('/property', async (req, res) => {
-            const data = req.body;
-            const result = await propertyCollection.insertOne(data);
+
+        //Make an offer
+        app.get('/make-offer/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: new ObjectId(id) };
+            const result = await wishListCollection.findOne(query);
             res.send(result);
-        });
+        })
+
+        app.get('/user/offer/:email', async (req, res) => {
+            const email = req.params.email;
+            const query = { user_email: email };
+            const result = await offerCollection.find(query).toArray();
+            res.send(result);
+        })
+
+        app.post('/offer-property', async (req, res) => {
+            const data = req.body;
+            const result = await offerCollection.insertOne(data);
+            res.send(result);
+        })
+
+
+
+        //All user data post data
 
         app.post('/all-user', async (req, res) => {
             const user = req.body;
@@ -130,11 +171,7 @@ async function run() {
             res.send(result);
         });
 
-        app.post('/wish-list', async (req, res) => {
-            const wishData = req.body;
-            const result = await wishListCollection.insertOne(wishData);
-            res.send(result);
-        })
+
 
 
 
