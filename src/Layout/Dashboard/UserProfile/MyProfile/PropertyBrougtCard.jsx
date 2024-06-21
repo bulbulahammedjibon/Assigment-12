@@ -1,16 +1,12 @@
-import { Link } from "react-router-dom";
 
 
-const WishListCard = ({ list }) => {
- 
-
-
+const PropertyBrougtCard = ({card}) => {
     return (
         <div>
-            <div href="#" className="block   rounded-lg p-4 shadow-sm shadow-indigo-100">
+            <a href="#" className="block rounded-lg p-4 shadow-sm shadow-indigo-100">
                 <img
                     alt=""
-                    src={list.property_image}
+                    src={card.image}
                     className="h-56 w-full rounded-md object-cover"
                 />
 
@@ -19,26 +15,39 @@ const WishListCard = ({ list }) => {
                         <div>
                             <dt className="sr-only">Price</dt>
 
-                            <dd className="text-sm text-gray-500">${list.min_price} - {(list.max_price)}</dd>
+                            <dd className="text-sm text-gray-500">$ {card.offer_amount}</dd>
+                           
                         </div>
 
                         <div>
                             <dt className="sr-only">Address</dt>
 
-                            <dd className="font-medium">{list.title}</dd>
-                            <dd className="font-medium my-1">{list.property_location}</dd>
-
+                            <dd className="font-medium">{card.title}</dd>
+                            <dd className="font-medium text-gray-400">{card.location}</dd>
                         </div>
                     </dl>
 
                     <div className="mt-6 flex items-center gap-8 text-xs">
                         <div className="sm:inline-flex sm:shrink-0 sm:items-center sm:gap-2">
-                            <img className="w-8 h-8 rounded-full" src={list.agent_photo} alt="" />
+                            <svg
+                                className="size-4 text-indigo-700"
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth="2"
+                                    d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"
+                                />
+                            </svg>
 
                             <div className="mt-1.5 sm:mt-0">
                                 <p className="text-gray-500">Agent Name</p>
 
-                                <p className="font-medium">{list.agent_Name}</p>
+                                <p className="font-medium">{card.agent_name}</p>
                             </div>
                         </div>
 
@@ -61,20 +70,16 @@ const WishListCard = ({ list }) => {
                             <div className="mt-1.5 sm:mt-0">
                                 <p className="text-gray-500">Verification Status</p>
 
-                                <p className="font-medium">{list.verification_status}</p>
+                                <p className="font-medium">{card.status}</p>
                             </div>
                         </div>
 
-
-                    </div>
-                    <div className="flex justify-around mt-7">
-                      <Link to={`/dashboard/user-make-offer/${list._id}`}>  <button   className="btn btn-success">Make Offer</button></Link>
-                        <button className="btn btn-error">Remove</button>
+                        
                     </div>
                 </div>
-            </div>
+            </a>
         </div>
     );
 };
 
-export default WishListCard;
+export default PropertyBrougtCard;

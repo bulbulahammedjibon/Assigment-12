@@ -1,13 +1,17 @@
 import { Navigate, useLocation } from "react-router";
-import useAuth from "../hooks/useAuth";
+import useAuth from "../../Hooks/UseAuth/UseAuth";
+
 
 
 const PrivateRoute = ({ children }) => {
-    const { user, loading } = useAuth();
+    const { user, loader } = useAuth();
     const location = useLocation();
 
-    if (loading) {
-        return <progress className="progress w-56"></progress>
+    if (loader) {
+        return <div className="text-center">
+            <span className="loading loading-dots loading-md"></span>
+            <span className="loading loading-dots loading-lg"></span>
+        </div>
     }
 
     if (user) {

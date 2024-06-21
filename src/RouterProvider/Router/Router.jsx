@@ -23,6 +23,8 @@ import ManageProperty from "../../Layout/Dashboard/Admin DashBoard/Manage Proper
 import ManageUsers from "../../Layout/Dashboard/Admin DashBoard/Manage Users/ManageUsers";
 import ManageReviews from "../../Layout/Dashboard/Admin DashBoard/Manage Reviews/ManageReviews";
 import SingUp2 from "../../Pages/SingUp/SingUp";
+import MakeAnOffer from "../../Layout/Dashboard/UserProfile/MyProfile/MakeAnOffer";
+import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 
 const router = createBrowserRouter([
@@ -40,7 +42,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/singup',
-        element:  <SingUp2></SingUp2>
+        element: <SingUp2></SingUp2>
       },
       {
         path: '/allproperty',
@@ -49,7 +51,7 @@ const router = createBrowserRouter([
       {
         path: '/details-page/:id',
         element: <DetailsPage />,
-        loader: ({params}) => fetch(` http://localhost:7000/single-property/${params.id}`)
+        loader: ({ params }) => fetch(` http://localhost:7000/single-property/${params.id}`)
       }
     ],
 
@@ -57,7 +59,9 @@ const router = createBrowserRouter([
   },
   {
     path: '/dashboard',
-    element: <Dashboard />,
+    element: <PrivateRoute>
+      <Dashboard />
+    </PrivateRoute>,
     children: [
       //user Dashboard
       {
@@ -67,7 +71,7 @@ const router = createBrowserRouter([
       {
         path: 'wishlist',
         element: <WishList />,
-       
+
       },
       {
         path: 'property-bought',
@@ -76,6 +80,12 @@ const router = createBrowserRouter([
       {
         path: 'my-review',
         element: <MyReview />
+      },
+      {
+        path: 'user-make-offer/:id',
+        element: <MakeAnOffer />,
+        loader: ({ params }) => fetch(`http://localhost:7000/make-offer/${params.id}`)
+
       },
 
       //Agent DashBoard
@@ -94,7 +104,9 @@ const router = createBrowserRouter([
       },
       {
         path: 'my-sold-property',
-        element: <MySoldProperty />
+        element: <PrivateRoute>
+          <MySoldProperty />
+        </PrivateRoute>
       },
       {
         path: 'requested-properties',
