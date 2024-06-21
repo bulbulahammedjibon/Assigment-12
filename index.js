@@ -103,6 +103,11 @@ async function run() {
             res.send(result);
         })
 
+        app.get('/all-user/review', async (req, res) => {
+            const result = await reviewCollection.find().toArray();
+            res.send(result);
+        })
+
         app.get('/reviews/:email', async (req, res) => {
             const email = req.params.email;
             const query = { user_email: email };
@@ -154,14 +159,60 @@ async function run() {
             res.send(result);
         })
 
+        app.patch('/update-accept/:id', async (req, res) => {
+            const query = req.query.id;
+            const data = req.body;
+            let { id, _id, status } = req.body;
+
+            const filter = { id: id };
+            const updateStatus = {
+                $set: {
+                    status: status,
+                }
+            }
+            const result = await offerCollection.updateMany(filter, updateStatus);
+            res.send(result)
+            // console.log("data.id",id,_id,status);
+            // console.log(query);
+        })
+
+        app.patch('/update-reject/:id', async (req, res) => {
+            const query = req.query.id;
+            const data = req.body;
+            let { id, _id, status } = req.body;
+
+            const filter = { id: id };
+            const updateStatus = {
+                $set: {
+                    status: status,
+                }
+            }
+            const result = await offerCollection.updateMany(filter, updateStatus);
+            res.send(result)
+            // console.log("data.id",id,_id,status);
+            // console.log(query);
+        })
+
+        // Agent requested Property
+        app.get('/requsted-property/:email', async (req, res) => {
+            const email = req.params.email;
+            const query = { agent_email: email }
+            const result = await offerCollection.find(query).toArray();
+            res.send(result);
+        })
+
 
 
         //All user data post data
 
+        app.get('/user/:email', async (req, res) => {
+            const email = req.params.email;
+            const query = { email: email };
+            const result = await userCollection.findOne(query);
+            res.send(result);
+        })
+
         app.post('/all-user', async (req, res) => {
-            const user = req.body;
-            // insert email if user doesnt exists: 
-            // you can do this many ways (1. email unique, 2. upsert 3. simple checking)
             const query = { email: user.email }
             const existingUser = await userCollection.findOne(query);
             if (existingUser) {
