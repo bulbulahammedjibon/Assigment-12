@@ -1,13 +1,15 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import AdvertisementReview from "../Advertisemt section/AdvertisementReview";
+import useAxiosPublic from "../../Hooks/AxiosPublic/axiosPublic";
 
 
 
 const LatestUserReview = () => {
     const [review, setReview] = useState([]);
+    const axiosPublic = useAxiosPublic();
     useEffect(() => {
-        axios('LatestUserReviewJson.json')
+        axiosPublic('/all-user/review')
             .then(res => {
                 console.log(res.data);
                 setReview(res.data);
@@ -24,11 +26,11 @@ const LatestUserReview = () => {
 
                         <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-8">
                              {
-                                review.map(review=>  <blockquote  className="rounded-lg bg-gray-50 p-6 shadow-sm sm:p-8">
+                                review.map(review=>  <blockquote key={review._id}  className="rounded-lg bg-gray-50 p-6 shadow-sm sm:p-8">
                                 <div className="flex items-center gap-4">
                                     <img
                                         alt=""
-                                        src="https://images.unsplash.com/photo-1595152772835-219674b2a8a6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1180&q=80"
+                                        src={review.user_photo}
                                         className="size-14 rounded-full object-cover"
                                     />
     
@@ -86,13 +88,13 @@ const LatestUserReview = () => {
                                             </svg>
                                         </div>
     
-                                        <p className="mt-0.5 text-lg font-medium text-gray-900">Paul Starr</p>
+                                        <p className="mt-0.5 text-lg font-medium text-gray-900">{review.user_name}</p>
                                     </div>
                                 </div>
-                                <p className="mt-3 text-xl">{review.propertyTitle}</p>
+                                <p className="mt-3 text-xl">{review.property_title}</p>
     
                                 <p className="mt-4 text-gray-700">
-                                   {review.reviewText}
+                                   {review.review}
                                 </p>
 
                                

@@ -28,28 +28,29 @@ const MakeAnOffer = () => {
             location: loadData.property_location,
             title: loadData.title,
             agent_name: loadData.agent_Name,
+            agent_email: loadData.agent_email,
             user_email: loadData.user_email,
             user_name: loadData.user_name,
             image: loadData.property_image,
             offer_amount: price,
             status: 'pending',
-            id: loadData._id,
+            id: loadData.id,
             date: date,
 
         }
 
         console.table(propertyBrought);
-        axiosPublic.post('/offer-property',propertyBrought)
-        .then(res=>{
-            console.log(res.data);
-            if(res.data.insertedId){
-                toast.success("SuccessFully Added Offer")
-            }
-        })
-        .catch(error=>{
-            console.log(error.message);
-            toast.error(error.message);
-        })
+        axiosPublic.post('/offer-property', propertyBrought)
+            .then(res => {
+                console.log(res.data);
+                if (res.data.insertedId) {
+                    toast.success("SuccessFully Added Offer")
+                }
+            })
+            .catch(error => {
+                console.log(error.message);
+                toast.error(error.message);
+            })
 
 
 

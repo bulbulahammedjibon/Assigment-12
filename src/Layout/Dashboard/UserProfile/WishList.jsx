@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import useAuth from "../../../Hooks/UseAuth/UseAuth";
-import axios from "axios";
+
 import useAxiosPublic from "../../../Hooks/AxiosPublic/axiosPublic";
 import WishListCard from "./MyProfile/WishListCard";
 

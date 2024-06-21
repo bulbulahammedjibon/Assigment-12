@@ -28,7 +28,7 @@ const DetailsPage = () => {
 
     const detailsData = useLoaderData();
     console.log(detailsData);
-    const { _id, image, location, min_price, max_price, agent_name, agent_photo, description, verification_status, title } = detailsData;
+    const { _id, image, location, min_price, max_price, agent_name,agent_email, agent_photo, description, verification_status, title } = detailsData;
     // handle form
     const handleSubmit = e => {
         e.preventDefault();
@@ -74,6 +74,7 @@ const DetailsPage = () => {
             user_photo: user?.photoURL,
             title: title,
             agent_Name: agent_name,
+            agent_email:agent_email,
             agent_photo:agent_photo,
             verification_status: verification_status,
             min_price: min_price,
