@@ -1,6 +1,7 @@
+import { Link } from "react-router-dom";
 
 
-const PropertyBrougtCard = ({card}) => {
+const PropertyBrougtCard = ({ card }) => {
     return (
         <div>
             <a href="#" className="block rounded-lg p-4 shadow-sm shadow-indigo-100">
@@ -16,7 +17,7 @@ const PropertyBrougtCard = ({card}) => {
                             <dt className="sr-only">Price</dt>
 
                             <dd className="text-sm text-gray-500">$ {card.offer_amount}</dd>
-                           
+
                         </div>
 
                         <div>
@@ -74,7 +75,19 @@ const PropertyBrougtCard = ({card}) => {
                             </div>
                         </div>
 
-                        
+                        {/* transactionId */}
+                    </div >
+                    <div className="text-center my-3">
+                        <Link to={`/dashboard/payment/${card._id}`}>
+
+                            <button className={` btn  && ${card.status === 'accepted' ? 'btn bg-green-500 w-full text-gray-100' : 'btn-disabled hidden'
+                                }`} >Pay</button>
+
+                        </Link>
+
+                        {
+                            card.status === 'bought' ? <p className="btn btn-sm text-xs"> transactionId: {card.transactionId}  </p> : ''
+                        }
                     </div>
                 </div>
             </a>

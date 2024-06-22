@@ -19,7 +19,7 @@ const PropertyBought = () => {
     }, [])
     return (
         <div>
-            <div>
+            <div className="grid grid-cols-1 gap-7 md:grid-cols-2 lg:grid-cols-3">
             
         {
             data.map(card=> <PropertyBrougtCard key={card._id} card={card} />)

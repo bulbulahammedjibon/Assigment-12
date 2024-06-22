@@ -9,33 +9,47 @@ const RequestedProperties = () => {
     const [data, setData] = useState([]);
     const axiosPublic = useAxiosPublic();
 
+    useEffect(() => {
+        propertyData()
+    }, [])
 
-    const handleAccept = (_id, id,user_email) => {
+
+    const propertyData = () => axiosPublic(`/requsted-property/${user?.email}`)
+        .then(res => {
+            console.log(res.data);
+            setData(res.data);
+        })
+
+
+    const handleAccept = (_id, id, user_email) => {
         const status = {
-            status: 'accepted',
-            // status_r:'rejected',
+            status_accepted: 'accepted',
+            status_reject: 'rejected',
             _id: _id,
             id: id,
-            // user_email: user_email,
+            email: user_email,
 
         };
         axiosPublic.patch(`/update-accept/${id}`, status)
             .then(res => {
                 console.log(res.data);
+                propertyData();
             })
         // console.log(id,_id)
     }
 
-    const handleReject = (_id, id) => {
+    const handleReject = (_id, id,user_email) => {
         const status = {
             status: 'rejected',
             _id: _id,
             id: id,
+            email:user_email,
 
         };
         axiosPublic.patch(`/update-reject/${id}`, status)
             .then(res => {
                 console.log(res.data);
+                propertyData();
             })
         // console.log(id,_id)
     }
@@ -43,13 +57,7 @@ const RequestedProperties = () => {
 
 
 
-    useEffect(() => {
-        axiosPublic(`/requsted-property/${user?.email}`)
-            .then(res => {
-                console.log(res.data);
-                setData(res.data);
-            })
-    }, [])
+
     return (
         <div className="container mx-auto">
             <h4>Requested Property</h4>
@@ -86,8 +94,10 @@ const RequestedProperties = () => {
                                 <td className="whitespace-nowrap px-4 py-2">
                                     <button
                                         disabled={status}
-                                        onClick={() => handleAccept(data._id, data.id,user_email)}
-                                        className="inline-block rounded bg-green-500 px-4 py-2 text-xs font-medium text-white hover:bg-indigo-700"
+                                        onClick={() => handleAccept(data._id, data.id, data.user_email)}
+                                        // className={`btn btn-sm text-white  bg-green-500  `}
+                                        className={` btn btn-sm && ${data.status === 'pending' ? 'btn-success' : 'btn-disabled'
+                                            }`}
                                     >
                                         Accept
                                     </button>
@@ -95,8 +105,9 @@ const RequestedProperties = () => {
 
                                 <td className="whitespace-nowrap px-4 py-2">
                                     <button
-                                        onClick={() => handleReject(data._id, data.id,)}
-                                        className="inline-block rounded bg-red-500 px-4 py-2 text-xs font-medium text-white hover:bg-indigo-700"
+                                        onClick={() => handleReject(data._id, data.id,data.user_email)}
+                                        className={` btn btn-sm && ${data.status === 'pending' ? 'btn-error' : 'btn-disabled'
+                                            }`}
                                     >
                                         Reject
                                     </button>

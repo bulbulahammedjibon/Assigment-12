@@ -25,6 +25,7 @@ import ManageReviews from "../../Layout/Dashboard/Admin DashBoard/Manage Reviews
 import SingUp2 from "../../Pages/SingUp/SingUp";
 import MakeAnOffer from "../../Layout/Dashboard/UserProfile/MyProfile/MakeAnOffer";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
+import PaymentPage from "../../Layout/Dashboard/UserProfile/MyProfile/Payment/PaymentPage";
 
 
 const router = createBrowserRouter([
@@ -67,6 +68,12 @@ const router = createBrowserRouter([
       {
         path: 'user',
         element: <MyProfile />
+      },
+      {
+        path: 'payment/:id',
+        element: <PrivateRoute>
+          <PaymentPage/>
+        </PrivateRoute>
       },
       {
         path: 'wishlist',
