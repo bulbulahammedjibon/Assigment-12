@@ -40,7 +40,7 @@ const client = new MongoClient(uri, {
 async function run() {
     try {
         // Connect the client to the server	(optional starting in v4.7)
-        await client.connect();
+        // await client.connect();
 
         const userCollection = client.db("real-estate").collection("all-user");
         const propertyCollection = client.db("real-estate").collection("property");
@@ -72,10 +72,17 @@ async function run() {
         })
         //Property get data
         app.get('/property-advertisement', async (req, res) => {
-            // const query = {verification_status:'verified'};
+            const query = { verification_status: 'verified' };
+            const result = await propertyCollection.find(query).toArray();
+            res.send(result);
+        })
+        //admin manage all property table get data
+        app.get('/property-admin-manage', async (req, res) => {
+
             const result = await propertyCollection.find().toArray();
             res.send(result);
         })
+
         app.get('/property/:email', async (req, res) => {
             const email = req.params.email;
             const query = { agent_email: email }
@@ -89,6 +96,43 @@ async function run() {
             result = await propertyCollection.findOne(query);
             res.send(result);
         })
+
+        //agent delete propertu
+        app.delete('/delete-agent-property/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: new ObjectId(id) };
+            const result = await propertyCollection.deleteOne(query);
+            res.send(result);
+        })
+
+
+        ///agent manage property data update
+        app.patch('/verified-user/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: new ObjectId(id) };
+            const updateDoc = {
+                $set: {
+                    verification_status: 'verified'
+                }
+            }
+            const result = await propertyCollection.updateOne(query, updateDoc);
+            res.send(result);
+        })
+
+        //admin reject add property
+        app.patch('/reject-user/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: new ObjectId(id) };
+            const updateDoc = {
+                $set: {
+                    verification_status: 'rejected'
+                }
+            }
+            const result = await propertyCollection.updateOne(query, updateDoc);
+            res.send(result);
+        })
+
+
         //Property Post data
         app.post('/property', async (req, res) => {
             const data = req.body;
@@ -105,8 +149,14 @@ async function run() {
             const result = await reviewCollection.find(query).toArray();
             res.send(result);
         })
-
+        //by recent date
         app.get('/all-user/review', async (req, res) => {
+            const result = await reviewCollection.find().sort({ 'time': -1 }).toArray();
+            res.send(result);
+        })
+
+        // get for addmin manage review
+        app.get('/manage-all-review', async (req, res) => {
             const result = await reviewCollection.find().toArray();
             res.send(result);
         })
@@ -123,6 +173,16 @@ async function run() {
             const result = await reviewCollection.insertOne(data);
             res.send(result);
         })
+
+        //delete review admin
+        app.delete('/delete-review/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: new ObjectId(id) }
+            const result = await reviewCollection.deleteOne(query);
+            res.send(result);
+        })
+
+
         //WishList get data
         app.get('/wishlist/:email', async (req, res) => {
             const email = req.params.email;
@@ -161,7 +221,7 @@ async function run() {
             const email = req.params.email;
             console.log(email)
             const status = 'sold';
-            const query = { agent_email: email,status: 'bought'  };
+            const query = { agent_email: email, status: 'bought' };
             const result = await offerCollection.find(query).toArray();
             res.send(result);
         })
@@ -236,6 +296,12 @@ async function run() {
 
         //All user data post data
 
+
+        app.get('/manage-user', async (req, res) => {
+            const result = await userCollection.find().toArray();
+            res.send(result);
+        })
+
         app.get('/user/:email', async (req, res) => {
             const email = req.params.email;
             const query = { email: email };
@@ -244,7 +310,8 @@ async function run() {
         })
 
         app.post('/all-user', async (req, res) => {
-            const query = { email: user.email }
+            const { email } = req.body;
+            const query = { email: email }
             const existingUser = await userCollection.findOne(query);
             if (existingUser) {
                 return res.send({ message: 'user already exists', insertedId: null })
@@ -252,6 +319,57 @@ async function run() {
             const result = await userCollection.insertOne(user);
             res.send(result);
         });
+
+        //admin opration user
+
+        app.get('/make-admin/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: new ObjectId(id) };
+            const updateDoc = {
+                $set: {
+                    role: 'admin',
+                }
+            }
+            const result = await userCollection.updateOne(query, updateDoc);
+            res.send(result);
+        })
+
+        // make as admin
+
+        app.get('/make-agent/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: new ObjectId(id) };
+            const updateDoc = {
+                $set: {
+                    role: 'agent',
+                }
+            }
+            const result = await userCollection.updateOne(query, updateDoc);
+            res.send(result);
+        })
+
+        //make as fruid
+
+        app.get('/mark-as-fraud/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: new ObjectId(id) };
+            const updateDoc = {
+                $set: {
+                    role: 'fraud',
+                }
+            }
+            const result = await userCollection.updateOne(query, updateDoc);
+            res.send(result);
+        })
+
+        // delete user
+        app.get('/delete-user/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: new ObjectId(id) };
+
+            const result = await userCollection.deleteOne(query);
+            res.send(result);
+        })
 
         //Price count
         app.get('/price-count/:id', async (req, res) => {
@@ -310,7 +428,7 @@ async function run() {
 
         // Send a ping to confirm a successful connection
         // await client.db("admin").command({ ping: 1 });
-        console.log("Pinged your deployment. You successfully connected to MongoDB!");
+        // console.log("Pinged your deployment. You successfully connected to MongoDB!");
     } finally {
         // Ensures that the client will close when you finish/error
         // await client.close();
