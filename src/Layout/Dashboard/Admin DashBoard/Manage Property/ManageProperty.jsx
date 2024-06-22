@@ -11,7 +11,7 @@ const ManageProperty = () => {
 
 
     useEffect(() => {
-        axiosPublic(`/property-advertisement `)
+    axiosPublic(`/property-admin-manage `)
             .then(res => {
                 console.log(res.data);
                 setData(res.data);
@@ -19,13 +19,23 @@ const ManageProperty = () => {
     }, [])
 
 
-    const handleVerified = id =>{
+    const handleVerified = id => {
         axiosPublic.patch(`/verified-user/${id}`)
-        .then(res=>{
-            console.log(res.data);
+            .then(res => {
+                console.log(res.data);
 
-        }).catch(err=> console.log(err.message));
+            }).catch(err => console.log(err.message));
     }
+
+    const handleReject = id => {
+        axiosPublic.patch(`/reject-user/${id}`)
+            .then(res => {
+                console.log(res.data);
+
+            }).catch(err => console.log(err.message));
+    }
+
+
     return (
         <div>
             <h3>MAnage PRoperty</h3>
@@ -60,10 +70,25 @@ const ManageProperty = () => {
                                 <td className="whitespace-nowrap px-4 py-2 text-gray-700">{data.agent_name}</td>
                                 <td className="whitespace-nowrap px-4 py-2 text-gray-700">{data.agent_email}</td>
                                 <td className="whitespace-nowrap px-4 py-2 text-gray-700">${data.min_price} - {(data.max_price)}</td>
-                                <td><button onClick={()=>handleVerified(data._id)} className="btn bg-green-400 btn-sm">Verify</button></td>
+
+                                <td><button onClick={() => handleVerified(data._id)}
+                                    //  className="btn bg-green-400 btn-sm"
+                                    className={` btn btn-sm && ${data.verification_status === 'verified' || data.verification_status === 'rejected' ? 'btn-disabled' : 'btn-success '
+                                        }`}
+
+                                >Verify</button></td>
 
 
-                                <td><button className="btn bg-red-400 btn-sm">Reject</button></td>
+                                <td><button onClick={() => handleReject(data._id)}
+                                    // className="btn bg-red-400 btn-sm"
+                                    className={` btn btn-sm && ${data.verification_status === 'verified' || data.verification_status === 'rejected' ? 'btn-disabled' : 'bg-red-500 '}`}
+                                >Reject</button></td>
+
+                                {/* rejected */}
+
+
+
+
                             </tr>)
                         }
 

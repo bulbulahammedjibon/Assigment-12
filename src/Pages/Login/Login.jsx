@@ -58,7 +58,7 @@ const Login = () => {
             <section className="bg-white loginbg dark:bg-gray-900">
                 <div className="container flex items-center   justify-center min-h-screen px-6 mx-auto">
                     <div className="w-full max-w-md">
-                        <img className="w-auto h-7 sm:h-8" src="https://merakiui.com/images/logo.svg" alt="" />
+                        
 
                         <h1 className="mt-3 text-2xl font-semibold text-gray-800 capitalize sm:text-3xl dark:text-white">Login </h1>
 

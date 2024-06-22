@@ -47,6 +47,18 @@ const SingUp2 = () => {
     const onSubmit = async (data) => {
         console.log(data)
         //create user
+        const passwordVerification = /^(?=.*[A-Z])(?=.*[a-z]).{6,}$/;
+
+        if (!passwordVerification.test(data.password)) {
+            console.log('its ok')
+            toast.error("Password Not Fullfil requremant!");
+            return;
+          
+        }
+        else {
+             toast.success("Password Aproved!");
+            
+        }
 
 
 

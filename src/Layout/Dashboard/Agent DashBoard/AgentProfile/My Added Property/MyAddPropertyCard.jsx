@@ -1,6 +1,15 @@
+import useAxiosPublic from "../../../../../Hooks/AxiosPublic/axiosPublic";
 
 
 const MyAddPropertyCard = ({ data }) => {
+    const axiosPublic = useAxiosPublic();
+
+    const handleDelete = id => {
+        axiosPublic.delete(`/delete-agent-property/${id}`)
+            .then(res => {
+                console.log(res.data);
+            })
+    }
     return (
         <div>
             <a href="#" className="block rounded-lg p-4 shadow-sm shadow-indigo-100">
@@ -62,8 +71,12 @@ const MyAddPropertyCard = ({ data }) => {
 
                     </div>
                     <div className="flex justify-around mt-7">
-                        <button className="btn btn-success">Update</button>
-                        <button className="btn btn-error">Delete</button>
+                        <button className={` btn btn-success && ${data.verification_status === 'rejected' ? 'btn-success hidden' : ''
+                            }`}
+                        //  className="btn btn-success"
+
+                        >Update</button>
+                        <button onClick={() => handleDelete(data._id)} className="btn btn-error">Delete</button>
                     </div>
                 </div>
             </a>

@@ -23,8 +23,8 @@ const MyAddedProperty = () => {
 
     return (
         <div>
-            <h3>My Added property</h3>
-            <p>{propertyData.length}</p>
+            
+           
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3" >
                 {
                     propertyData.map(data => <MyAddPropertyCard key={data._id} data={data} />)

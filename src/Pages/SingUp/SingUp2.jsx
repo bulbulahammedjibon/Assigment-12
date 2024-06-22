@@ -45,50 +45,56 @@ const SingUp2 = () => {
     //user Email password
 
     const onSubmit = async (data) => {
-        console.log(data)
+        
         //create user
 
+        if (data.password.length > 5) {
+            toast.error('Password error')
+            return;
 
+        }
+        console.log(data)
+        console.log('ami');
 
         // image upload to imgbb and then get an url
         const imageFile = { image: data.image[0] }
-        const res = await axiosPublic.post(image_hosting_api, imageFile, {
-            headers: {
-                'content-type': 'multipart/form-data'
-            }
-        });
-        if (res.data.success) {
-            // now send the menu item data to the server with the image url
+        // const res = await axiosPublic.post(image_hosting_api, imageFile, {
+        //     headers: {
+        //         'content-type': 'multipart/form-data'
+        //     }
+        // });
+        // if (res.data.success) {
+        //     // now send the menu item data to the server with the image url
 
-            //user create
-            createEmailPassword(data.email, data.password)
-                .then(() => {
-                    // create user entry in the database
-                    const userData = {
-                        name: data.name,
-                        email: data.email,
-                        role: 'user',
-                        // password: data.password,
-                        image: res.data.data.display_url
-                    }
-                    axiosPublic.post('/all-user', userData)
-                        .then(res => {
-                            if (res.data.insertedId) {
-                                console.log('user added to the database')
+        //     //user create
+        //     createEmailPassword(data.email, data.password)
+        //         .then(() => {
+        //             // create user entry in the database
+        //             const userData = {
+        //                 name: data.name,
+        //                 email: data.email,
+        //                 role: 'user',
+        //                 // password: data.password,
+        //                 image: res.data.data.display_url
+        //             }
+        //             axiosPublic.post('/all-user', userData)
+        //                 .then(res => {
+        //                     if (res.data.insertedId) {
+        //                         console.log('user added to the database')
 
-                                toast.success('User Create Successfully')
-                                // navigate('/');
-                            }
-                        })
+        //                         toast.success('User Create Successfully')
+        //                         // navigate('/');
+        //                     }
+        //                 })
 
-                    //update user PRofile
-                    updateUserProfile(data.name, res.data.data.display_url)
-                        .then()
-                        .catch(err => console.log(err.message))
+        //             //update user PRofile
+        //             updateUserProfile(data.name, res.data.data.display_url)
+        //                 .then()
+        //                 .catch(err => console.log(err.message))
 
 
-                })
-                .catch(error => console.log(error))
+        //         })
+        //         .catch(error => console.log(error))
 
 
             // 
@@ -105,7 +111,7 @@ const SingUp2 = () => {
             //     //     timer: 1500
             //     //   });
             // }
-        }
+        // }
         // console.log('with image url', res.data);
     };
 

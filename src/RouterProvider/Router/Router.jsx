@@ -26,12 +26,14 @@ import SingUp2 from "../../Pages/SingUp/SingUp";
 import MakeAnOffer from "../../Layout/Dashboard/UserProfile/MyProfile/MakeAnOffer";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import PaymentPage from "../../Layout/Dashboard/UserProfile/MyProfile/Payment/PaymentPage";
+import ErrorPage from "../../Component/errorPage/ErrorPage";
 
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Main />,
+    errorElement: <ErrorPage/>,
     children: [
       {
         path: '/',
@@ -51,7 +53,9 @@ const router = createBrowserRouter([
       },
       {
         path: '/details-page/:id',
-        element: <DetailsPage />,
+        element: <PrivateRoute>
+           <DetailsPage />
+        </PrivateRoute>,
         loader: ({ params }) => fetch(` http://localhost:7000/single-property/${params.id}`)
       }
     ],
