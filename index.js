@@ -2,6 +2,8 @@ const express = require('express')
 require('dotenv').config()
 const app = express()
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
+
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const port = process.env.PORT || 7000;
 const cors = require('cors')
 
@@ -70,6 +72,7 @@ async function run() {
         })
         //Property get data
         app.get('/property-advertisement', async (req, res) => {
+            // const query = {verification_status:'verified'};
             const result = await propertyCollection.find().toArray();
             res.send(result);
         })
@@ -153,25 +156,53 @@ async function run() {
             res.send(result);
         })
 
+        //Agent my Sold Property
+        app.get('/agent-sold/:email', async (req, res) => {
+            const email = req.params.email;
+            console.log(email)
+            const status = 'sold';
+            const query = { agent_email: email,status: 'bought'  };
+            const result = await offerCollection.find(query).toArray();
+            res.send(result);
+        })
+
         app.post('/offer-property', async (req, res) => {
             const data = req.body;
             const result = await offerCollection.insertOne(data);
             res.send(result);
         })
 
+        // status_accepted: 'accepted',
+        //     status_reject: 'rejected',
+        //     _id: _id,
+        //     id: id,
+        //     email: user_email,
+
         app.patch('/update-accept/:id', async (req, res) => {
             const query = req.query.id;
-            const data = req.body;
-            let { id, _id, status } = req.body;
+            // const data = req.body;
+            let { id, _id, email, status_reject, status_accepted } = req.body;
 
             const filter = { id: id };
             const updateStatus = {
                 $set: {
-                    status: status,
+                    status: status_reject,
                 }
             }
             const result = await offerCollection.updateMany(filter, updateStatus);
-            res.send(result)
+
+
+            //only accepted
+            const filter_accepted = { user_email: email, id: id, };
+
+            const updateStatus_accepted = {
+                $set: {
+                    status: status_accepted,
+                }
+            }
+            const result_accepted = await offerCollection.updateOne(filter_accepted, updateStatus_accepted);
+            res.send([result, result_accepted])
+
             // console.log("data.id",id,_id,status);
             // console.log(query);
         })
@@ -179,15 +210,15 @@ async function run() {
         app.patch('/update-reject/:id', async (req, res) => {
             const query = req.query.id;
             const data = req.body;
-            let { id, _id, status } = req.body;
+            let { id, _id, status, email } = req.body;
 
-            const filter = { id: id };
+            const filter = { user_email: email, id: id };
             const updateStatus = {
                 $set: {
                     status: status,
                 }
             }
-            const result = await offerCollection.updateMany(filter, updateStatus);
+            const result = await offerCollection.updateOne(filter, updateStatus);
             res.send(result)
             // console.log("data.id",id,_id,status);
             // console.log(query);
@@ -221,6 +252,56 @@ async function run() {
             const result = await userCollection.insertOne(user);
             res.send(result);
         });
+
+        //Price count
+        app.get('/price-count/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: new ObjectId(id) };
+            const result = await offerCollection.findOne(query);
+            res.send(result);
+        })
+
+
+
+        //Payment 
+        app.post('/create-payment-intent', async (req, res) => {
+            const { price } = req.body;
+            const calculateOrderAmount = parseInt(price * 100);
+            console.log(calculateOrderAmount, 'amount inside the intent')
+
+            const paymentIntent = await stripe.paymentIntents.create({
+                amount: calculateOrderAmount,
+                currency: 'usd',
+                payment_method_types: ['card'],
+            });
+
+            res.send({
+                clientSecret: paymentIntent.client_secret
+            })
+        });
+
+        // const payment = {
+        //     transactionId: paymentIntent.id,
+        //     date: new Date(), // utc date convert. use moment js to 
+        //    buying_status: 'sold',
+        // }
+        //payment status update agent table
+        app.put('/payments-update', async (req, res) => {
+            const { id, transactionId, date, buying_status } = req.body;
+            const options = { upsert: true };
+            const query = { _id: new ObjectId(id) };
+            const updateDoc = {
+                $set: {
+                    buying_date: date,
+                    buying_status: buying_status,
+                    transactionId: transactionId,
+                    status: 'bought',
+                }
+            }
+
+            const result = await offerCollection.updateOne(query, updateDoc, options);
+            res.send(result);
+        })
 
 
 
