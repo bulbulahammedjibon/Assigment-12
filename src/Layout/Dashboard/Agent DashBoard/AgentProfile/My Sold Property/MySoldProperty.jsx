@@ -21,7 +21,7 @@ const MySoldProperty = () => {
 
     return (
         <div>
-            <h4>My Sold Property</h4>
+            
 
             <div className="overflow-x-auto">
                 <table className="table">

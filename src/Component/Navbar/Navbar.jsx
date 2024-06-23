@@ -28,7 +28,7 @@ const Navbar = () => {
                         </ul>
                     </div>
                     <a className="btn btn-ghost text-xl">  
-                        <img className='w-48' src={img} alt="" />
+                        <img className='w-48 h-12' src={img} alt="" />
                         
                         </a>
                 </div>
@@ -46,13 +46,8 @@ const Navbar = () => {
                                 </div>
                             </div>
                             <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-                                <li>
-                                    <a className="justify-between">
-                                        Profile
-                                        <span className="badge">New</span>
-                                    </a>
-                                </li>
-                                <li><a>Settings</a></li>
+                                
+                                
                                 <li><button  onClick={()=>logOut()}>Logout</button></li>
                             </ul>
                         </div> : <Link className="btn  bg-green-400" to='/login'>Login</Link>

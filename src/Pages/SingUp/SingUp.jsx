@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 
 import { FcGoogle } from "react-icons/fc";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
  
 import { toast } from "react-toastify";
@@ -14,6 +14,7 @@ const image_hosting_key = import.meta.env.VITE_IMAGEBB;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
 const SingUp2 = () => {
+    const navigate = useNavigate();
     const { createEmailPassword, googleLogin, updateUserProfile } = useContext(AuthContext);
     const { register, handleSubmit, reset } = useForm();
     const axiosPublic = useAxiosPublic();
@@ -30,7 +31,7 @@ const SingUp2 = () => {
                     .then(res => {
                         if (res.data.insertedId) {
                             console.log('user added to the database')
-
+                            navigate('/')
                             toast.success('User Create Successfully')
                             // navigate('/');
                         }
@@ -95,7 +96,7 @@ const SingUp2 = () => {
 
                     //update user PRofile
                     updateUserProfile(data.name, res.data.data.display_url)
-                        .then()
+                        // .then(navigate('/'))
                         .catch(err => console.log(err.message))
 
 

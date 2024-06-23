@@ -27,13 +27,15 @@ import MakeAnOffer from "../../Layout/Dashboard/UserProfile/MyProfile/MakeAnOffe
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import PaymentPage from "../../Layout/Dashboard/UserProfile/MyProfile/Payment/PaymentPage";
 import ErrorPage from "../../Component/errorPage/ErrorPage";
+import UpdateAddProperty from "../../Layout/Dashboard/Agent DashBoard/UpdateAddProperty/UpdateAddProperty";
+import axios from "axios";
 
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Main />,
-    errorElement: <ErrorPage/>,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: '/',
@@ -54,9 +56,9 @@ const router = createBrowserRouter([
       {
         path: '/details-page/:id',
         element: <PrivateRoute>
-           <DetailsPage />
+          <DetailsPage />
         </PrivateRoute>,
-        loader: ({ params }) => fetch(` http://localhost:7000/single-property/${params.id}`)
+        loader: ({ params }) => fetch(` https://server-real-state.vercel.app/single-property/${params.id}`)
       }
     ],
 
@@ -71,31 +73,42 @@ const router = createBrowserRouter([
       //user Dashboard
       {
         path: 'user',
-        element: <MyProfile />
+        element: <PrivateRoute>
+          <MyProfile />
+        </PrivateRoute>
       },
       {
         path: 'payment/:id',
         element: <PrivateRoute>
-          <PaymentPage/>
+          <PaymentPage />
         </PrivateRoute>
       },
       {
         path: 'wishlist',
-        element: <WishList />,
+        element: <PrivateRoute>
+          <WishList />
+        </PrivateRoute>
+
 
       },
       {
         path: 'property-bought',
-        element: <PropertyBought />
+        element: <PrivateRoute>
+          <PropertyBought />
+        </PrivateRoute>
       },
       {
         path: 'my-review',
-        element: <MyReview />
+        element: <PrivateRoute>
+          <MyReview />
+        </PrivateRoute>
       },
       {
         path: 'user-make-offer/:id',
-        element: <MakeAnOffer />,
-        loader: ({ params }) => fetch(`http://localhost:7000/make-offer/${params.id}`)
+        element: <PrivateRoute>
+          <MakeAnOffer />
+        </PrivateRoute>,
+        loader: ({ params }) => fetch(`https://server-real-state.vercel.app/make-offer/${params.id}`)
 
       },
 
@@ -103,15 +116,28 @@ const router = createBrowserRouter([
 
       {
         path: 'agent-profile',
-        element: <AgentProfile />
+        element: <PrivateRoute>
+          <AgentProfile />
+        </PrivateRoute>
       },
       {
         path: 'add-property',
-        element: <AddProperty />
+        element: <PrivateRoute>
+          <AddProperty />
+        </PrivateRoute>
       },
       {
         path: 'my-added-property',
-        element: <MyAddedProperty />
+        element: <PrivateRoute>
+          <MyAddedProperty />
+        </PrivateRoute>
+      },
+      {
+        path: 'update-property/:id',
+        element: <PrivateRoute>
+           <UpdateAddProperty/>
+        </PrivateRoute> ,
+        loader: ({params}) => fetch(`https://server-real-state.vercel.app/single-property/${params.id}`)
       },
       {
         path: 'my-sold-property',
@@ -121,25 +147,37 @@ const router = createBrowserRouter([
       },
       {
         path: 'requested-properties',
-        element: <RequestedProperties />
+        element: <PrivateRoute>
+          <RequestedProperties />
+        </PrivateRoute>
       },
       //Admin ROute
 
       {
         path: 'admin-profile',
-        element: <AdminProfile />
+        element: <PrivateRoute>
+          <AdminProfile />
+        </PrivateRoute>
       },
       {
         path: 'manage-properties',
-        element: <ManageProperty />
+        element: <PrivateRoute>
+          <ManageProperty />
+        </PrivateRoute>
+
+
       },
       {
         path: 'manage-users',
-        element: <ManageUsers />
+        element: <PrivateRoute>
+          <ManageUsers />
+        </PrivateRoute>
       },
       {
         path: 'manage-reviews',
-        element: <ManageReviews />
+        element: <PrivateRoute>
+          <ManageReviews />
+        </PrivateRoute>
       },
 
     ]

@@ -1,8 +1,11 @@
+import { Link } from "react-router-dom";
 import useAxiosPublic from "../../../../../Hooks/AxiosPublic/axiosPublic";
 
 
 const MyAddPropertyCard = ({ data }) => {
     const axiosPublic = useAxiosPublic();
+
+    
 
     const handleDelete = id => {
         axiosPublic.delete(`/delete-agent-property/${id}`)
@@ -71,11 +74,10 @@ const MyAddPropertyCard = ({ data }) => {
 
                     </div>
                     <div className="flex justify-around mt-7">
-                        <button className={` btn btn-success && ${data.verification_status === 'rejected' ? 'btn-success hidden' : ''
+                     <Link to={`/dashboard/update-property/${data._id}`}>   <button   className={` btn btn-success && ${data.verification_status === 'rejected' ? 'btn-success hidden' : ''
                             }`}
-                        //  className="btn btn-success"
 
-                        >Update</button>
+                        >Update</button> </Link> 
                         <button onClick={() => handleDelete(data._id)} className="btn btn-error">Delete</button>
                     </div>
                 </div>

@@ -33,7 +33,7 @@ const ManageReviews = () => {
 
     return (
         <div className="container mx-auto ">
-            <h3>Manage Reviews</h3>
+           
 
             <div className="grid grid-cols-1 gap-6 mx-10 my-5 md:grid-cols-2 lg:grid-cols-3">
                 {

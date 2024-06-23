@@ -1,13 +1,15 @@
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 import axios from "axios";
 import { FcGoogle } from "react-icons/fc";
 import { toast } from "react-toastify";
+import useAxiosPublic from "../../Hooks/AxiosPublic/axiosPublic";
 
 
 const Login = () => {
-    
+    const navigate = useNavigate();
+    const axiosPublic = useAxiosPublic();
 
     const {logInEmailPassword, googleLogin} = useContext(AuthContext);
 
@@ -18,12 +20,13 @@ const Login = () => {
                     name: res.user.displayName,
                     email: res.user.email
                 }
-                axios.post('http://localhost:7000/all-user', userInfo)
+                axiosPublic.post('/all-user', userInfo)
                     .then(res => {
                         if (res.data.insertedId) {
                             console.log('user added to the database')
 
                             toast.success('User Create Successfully')
+                            navigate('/')
                              
                         }
                     })
@@ -42,10 +45,15 @@ const Login = () => {
         const password = form.password.value;
         const loginData = { email, password };
         console.log(loginData);
+
+        if(password.length <6){
+            return toast.error("Password requrement does't fulfill")
+        }
         
         logInEmailPassword(email, password)
             .then(res => {
                 console.log(res.user);
+                navigate('/')
                 toast.success('SuccessFully Login')
             }).catch(error => {
                 console.log(error.message);

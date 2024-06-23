@@ -60,7 +60,7 @@ const RequestedProperties = () => {
 
     return (
         <div className="container mx-auto">
-            <h4>Requested Property</h4>
+           
 
             {/*
   Heads up! 👋

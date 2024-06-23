@@ -51,8 +51,7 @@ const ManageUsers = () => {
 
     return (
         <div>
-            <h3>Manage Users</h3>
-
+          
 
             <div className="overflow-x-auto">
                 <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
