@@ -9,7 +9,11 @@ const cors = require('cors')
 
 
 const corsOptions = {
-    origin: "*",
+    origin: [
+        "http://localhost:5173",
+        // "https://cardoctor-bd.web.app",
+        "https://real-state-assigment-12.web.app",
+    ],
     credentials: true,
 
     // optionSuccessStatus:200,
@@ -94,6 +98,25 @@ async function run() {
             const id = req.params.id;
             const query = { _id: new ObjectId(id) };
             result = await propertyCollection.findOne(query);
+            res.send(result);
+        })
+
+        //update agent property
+        app.patch('/update-property/:id',async(req,res)=>{
+            const {image, title,max_price,min_price, location} = req.body;
+            const id = req.params.id;
+            const query = {_id: new ObjectId(id)};
+            const updateDoc={
+                $set:{
+                    image:image,
+                    title:title,
+                    max_price:max_price,
+                    min_price:min_price,
+                    location:location,
+
+                }
+            }
+            const result = await propertyCollection.updateOne(query,updateDoc);
             res.send(result);
         })
 
@@ -310,6 +333,7 @@ async function run() {
         })
 
         app.post('/all-user', async (req, res) => {
+            const user = req.body;
             const { email } = req.body;
             const query = { email: email }
             const existingUser = await userCollection.findOne(query);
